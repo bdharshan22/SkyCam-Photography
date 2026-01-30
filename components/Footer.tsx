@@ -8,7 +8,7 @@ const Footer: React.FC = () => {
         {/* Logo Container */}
         <div className=" px-4 py-2 rounded-sm mb-8">
           <img
-            src="/logo2.png"
+            src="/LOGO.png"
             alt="Skycam Photography"
             className="h-12 w-auto object-contain invert dark:invert-0"
             onError={(e) => {

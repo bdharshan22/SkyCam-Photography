@@ -62,7 +62,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeLink, scrollToSection }) => {
           onClick={() => scrollToSection(NavLink.HOME)}
         >
           <img
-            src="/logo.png"
+            src="/LOGO.png"
             alt="Skycam Photography"
             className="h-12 w-auto object-contain dark:invert"
             onError={(e) => {
