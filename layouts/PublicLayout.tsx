@@ -22,26 +22,12 @@ const PublicLayout: React.FC = () => {
 
     // loading state: wait for window load or a short timeout
     useEffect(() => {
-        const minLoadingMs = 1500;
-        const start = performance.now();
+        // Force load after 2.5s max to prevent hanging on mobile
+        const safetyTimeout = setTimeout(() => {
+            setProgress(100);
+        }, 2500);
 
-        const onReady = () => {
-            const elapsed = performance.now() - start;
-            const remaining = Math.max(0, minLoadingMs - elapsed);
-            // const timeout = setTimeout(() => setIsLoading(false), remaining);
-            // return () => clearTimeout(timeout);
-        };
-
-        if (document.readyState === 'complete') {
-            onReady();
-        } else {
-            window.addEventListener('load', onReady);
-            const fallback = setTimeout(onReady, 5000);
-            return () => {
-                window.removeEventListener('load', onReady);
-                clearTimeout(fallback);
-            };
-        }
+        return () => clearTimeout(safetyTimeout);
     }, []);
 
     // Progress measurement
@@ -54,8 +40,9 @@ const PublicLayout: React.FC = () => {
         setLoadedResources(loaded);
 
         const updateProgress = () => {
-            const resourceRatio = total > 0 ? loaded / total : 0;
-            const target = Math.min(90, Math.round(resourceRatio * 90));
+            // Calculate real progress but bias it towards completion
+            const resourceRatio = total > 0 ? loaded / total : 1;
+            const target = Math.max(10, Math.round(resourceRatio * 100)); // Start at 10%
             setProgress((p) => Math.max(p, target));
         };
 
@@ -68,25 +55,29 @@ const PublicLayout: React.FC = () => {
         imgs.forEach((img: HTMLImageElement) => {
             if (!img.complete) {
                 img.addEventListener('load', onLoadOrError);
+                // Treat error as loaded to not block
                 img.addEventListener('error', onLoadOrError);
             }
         });
 
+        // Fast simulated progress to keep it feeling responsive
         const sim = setInterval(() => {
             setProgress((p) => {
-                if (p >= 95) return p;
-                return p + Math.random() * 3;
+                if (p >= 90 && loaded < total) return p; // Wait a bit at 90% if real resources aren't done
+                return Math.min(99, p + Math.random() * 10);
             });
-        }, 250);
+        }, 100); // Faster updates
 
         const checkDone = () => {
-            if (total === 0 || loaded >= total) {
-                setProgress(100);
-                // setTimeout(() => setIsLoading(false), 300);
-            }
+            setProgress(100);
         };
 
-        window.addEventListener('load', checkDone);
+        if (document.readyState === 'complete') {
+            checkDone();
+        } else {
+            window.addEventListener('load', checkDone);
+        }
+
         updateProgress();
 
         return () => {

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { ArrowRight } from 'lucide-react';
 
 interface LoadingScreenProps {
   progress?: number;
@@ -8,7 +7,6 @@ interface LoadingScreenProps {
 
 const LoadingScreen: React.FC<LoadingScreenProps> = ({ progress = 0, onComplete }) => {
   const [loadingText, setLoadingText] = useState("INITIALIZING");
-  const [showEnter, setShowEnter] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
 
   // Dynamic color classes based on state
@@ -32,33 +30,29 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ progress = 0, onComplete 
   const loadingTextColor = isExiting ? "text-green-400/80" : "text-red-400/80";
   const progressShadow = isExiting ? "shadow-[0_0_15px_rgba(34,197,94,0.8)]" : "shadow-[0_0_15px_rgba(239,68,68,0.8)]";
   const progressFill = isExiting ? "bg-green-500" : "bg-red-500";
-  const buttonBorderText = isExiting ? "text-green-400 border-green-500/50 hover:border-green-400 bg-green-500/10 hover:bg-green-500/20" : "text-red-400 border-red-500/50 hover:border-red-400 bg-red-500/10 hover:bg-red-500/20";
-  const buttonBg = isExiting ? "bg-green-500/0 group-hover:bg-green-500/10" : "bg-red-500/0 group-hover:bg-red-500/10";
-  const buttonLine = isExiting ? "bg-green-500" : "bg-red-500";
   const accessText = isExiting ? "text-green-500 drop-shadow-[0_0_8px_rgba(34,197,94,0.8)]" : "text-red-600/50";
 
   useEffect(() => {
     if (progress >= 100) {
       setLoadingText("SYSTEM READY");
-      setShowEnter(true);
-      return;
+      setIsExiting(true);
+      const timer = setTimeout(() => {
+        onComplete?.();
+      }, 800);
+      return () => clearTimeout(timer);
     }
 
     const texts = ["INITIALIZING", "LOADING ASSETS", "CALIBRATING OPTICS", "SYSTEM READY"];
     let i = 0;
     const interval = setInterval(() => {
-      setLoadingText(texts[i % texts.length]);
-      i++;
+      // Only cycle text if strictly less than 100
+      if (progress < 100) {
+        setLoadingText(texts[i % texts.length]);
+        i++;
+      }
     }, 800);
     return () => clearInterval(interval);
-  }, [progress]);
-
-  const handleContinue = () => {
-    setIsExiting(true);
-    setTimeout(() => {
-      onComplete?.();
-    }, 800); // Wait for exit animation
-  };
+  }, [progress, onComplete]);
 
   return (
     <div className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black overflow-hidden font-mono ${textColor} ${selectionColor} transition-colors duration-300`}>
@@ -121,36 +115,23 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ progress = 0, onComplete 
             <span className={`text-sm md:text-lg tracking-[0.5em] mt-2 font-light transition-colors duration-500 ${subtitleColor}`}>PHOTOGRAPHY</span>
           </h1>
 
-          {!showEnter ? (
-            <>
-              <div className={`flex items-center space-x-3 text-xs md:text-sm tracking-[0.4em] uppercase transition-colors duration-500 ${loadingTextColor}`}>
-                <span className={`w-2 h-2 rounded-full animate-ping transition-colors duration-500 ${loadingDot}`}></span>
-                <span>{loadingText}</span>
-                <span className={`w-2 h-2 rounded-full animate-ping transition-colors duration-500 ${loadingDot}`}></span>
-              </div>
+          <>
+            <div className={`flex items-center space-x-3 text-xs md:text-sm tracking-[0.4em] uppercase transition-colors duration-500 ${loadingTextColor}`}>
+              <span className={`w-2 h-2 rounded-full animate-ping transition-colors duration-500 ${loadingDot}`}></span>
+              <span>{loadingText}</span>
+              <span className={`w-2 h-2 rounded-full animate-ping transition-colors duration-500 ${loadingDot}`}></span>
+            </div>
 
-              {/* Progress Bar */}
-              <div className="w-64 h-1 bg-gray-900 rounded-full mt-6 overflow-hidden border border-gray-800">
-                <div
-                  className={`h-full transition-all duration-300 ease-out relative ${progressFill} ${progressShadow}`}
-                  style={{ width: `${progress}%` }}
-                >
-                  <div className="absolute top-0 right-0 bottom-0 w-20 bg-gradient-to-r from-transparent to-white/50 skew-x-[-20deg] animate-[shimmer_1s_infinite]"></div>
-                </div>
+            {/* Progress Bar */}
+            <div className="w-64 h-1 bg-gray-900 rounded-full mt-6 overflow-hidden border border-gray-800">
+              <div
+                className={`h-full transition-all duration-300 ease-out relative ${progressFill} ${progressShadow}`}
+                style={{ width: `${progress}%` }}
+              >
+                <div className="absolute top-0 right-0 bottom-0 w-20 bg-gradient-to-r from-transparent to-white/50 skew-x-[-20deg] animate-[shimmer_1s_infinite]"></div>
               </div>
-            </>
-          ) : (
-            <button
-              onClick={handleContinue}
-              className={`group relative mt-6 px-8 py-3 font-bold tracking-[0.3em] uppercase border transition-all duration-300 backdrop-blur-sm overflow-hidden ${buttonBorderText} ${isExiting ? 'animate-[slide-out-right_0.8s_ease-in_forwards]' : 'animate-[slide-in-left_0.8s_ease-out_forwards]'}`}
-            >
-              <span className="relative z-10 flex items-center gap-2 group-hover:text-white transition-colors">
-                Enter System <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </span>
-              <div className={`absolute inset-0 transition-colors duration-300 ${buttonBg}`}></div>
-              <div className={`absolute bottom-0 left-0 h-[2px] w-full scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left ${buttonLine}`}></div>
-            </button>
-          )}
+            </div>
+          </>
 
           <p className={`font-mono text-[10px] mt-4 transition-colors duration-300 ${accessText}`}>
             {isExiting ? "ACCESS GRANTED" : "AWAITING SYSTEM ENTRY"}
