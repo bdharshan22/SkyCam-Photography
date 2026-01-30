@@ -7,18 +7,10 @@ const Footer: React.FC = () => {
       <div className="container mx-auto px-6 flex flex-col items-center">
         {/* Logo Container */}
         <div className=" px-4 py-2 rounded-sm mb-8">
-          <img
-            src="/LOGO.png"
-            alt="Skycam Photography"
-            className="h-12 w-auto object-contain invert dark:invert-0"
-            onError={(e) => {
-              // Fallback text if image missing
-              e.currentTarget.style.display = 'none';
-              e.currentTarget.nextElementSibling?.classList.remove('hidden');
-            }}
-          />
-          <div className="hidden text-2xl font-serif italic font-bold tracking-wider text-black dark:text-white">
-            <span className="text-brand-600">SKYCAM</span> <span className="text-black dark:text-white text-lg not-italic">PHOTOGRAPHY</span>
+          <div className=" px-4 py-2 rounded-sm mb-8">
+            <div className="text-3xl font-serif italic font-bold tracking-wider text-black dark:text-white">
+              <span className="text-brand-600">SKYCAM</span> <span className="text-black dark:text-white text-xl not-italic">PHOTOGRAPHY</span>
+            </div>
           </div>
         </div>
 
