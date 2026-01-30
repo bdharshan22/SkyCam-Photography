@@ -25,7 +25,7 @@ const PublicLayout: React.FC = () => {
         // Force load after 2.5s max to prevent hanging on mobile
         const safetyTimeout = setTimeout(() => {
             setProgress(100);
-        }, 2500);
+        }, 2000);
 
         return () => clearTimeout(safetyTimeout);
     }, []);
