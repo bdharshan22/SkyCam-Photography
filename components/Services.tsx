@@ -71,7 +71,7 @@ const Services: React.FC<ServicesProps> = ({ scrollToSection }) => {
                 ref={watermarkRef}
                 className="absolute top-20 left-0 whitespace-nowrap opacity-[0.03] pointer-events-none select-none z-0"
             >
-                <span className="text-[150px] md:text-[300px] font-serif font-bold text-white leading-none">PACKAGES</span>
+                <span className="text-[150px] md:text-[300px] font-serif font-bold text-white leading-none">CAPTURE</span>
             </div>
 
             <div className="container mx-auto px-6 relative z-10 max-w-7xl">
