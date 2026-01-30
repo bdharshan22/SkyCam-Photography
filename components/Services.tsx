@@ -69,9 +69,9 @@ const Services: React.FC<ServicesProps> = ({ scrollToSection }) => {
             {/* Parallax Watermark */}
             <div
                 ref={watermarkRef}
-                className="absolute top-20 left-0 whitespace-nowrap opacity-[0.03] pointer-events-none select-none z-0"
+                className="absolute top-10 w-full flex justify-center whitespace-nowrap opacity-[0.1] pointer-events-none select-none z-0"
             >
-                <span className="text-[150px] md:text-[300px] font-serif font-bold text-white leading-none">CAPTURE</span>
+                <span className="text-[80px] md:text-[180px] font-serif font-bold text-white leading-none">CAPTURE</span>
             </div>
 
             <div className="container mx-auto px-6 relative z-10 max-w-7xl">
