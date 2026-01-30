@@ -9,28 +9,28 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ progress = 0, onComplete 
   const [loadingText, setLoadingText] = useState("INITIALIZING");
   const [isExiting, setIsExiting] = useState(false);
 
-  // Dynamic color classes based on state
-  const color = isExiting ? "green" : "red";
-  const textColor = isExiting ? "text-green-500" : "text-red-500";
-  const selectionColor = isExiting ? "selection:bg-green-500/30" : "selection:bg-red-500/30";
-  const glowStart = isExiting ? "rgba(34,197,94,0.03)" : "rgba(239,68,68,0.03)"; // Green : Red
-  const glowEnd = isExiting ? "rgba(34,197,94,0.1)" : "rgba(239,68,68,0.1)";
-  const coreGlow = isExiting ? "bg-green-500/10" : "bg-red-500/10";
-  const ringColor = isExiting ? "border-green-500/30" : "border-red-500/30";
-  const ringTiltTop = isExiting ? "border-green-400/20 border-t-green-400/60" : "border-red-400/20 border-t-red-400/60";
-  const ringTiltBottom = isExiting ? "border-green-400/20 border-b-green-400/60" : "border-red-400/20 border-b-red-400/60";
-  const ringVertical = isExiting ? "border-green-400/10" : "border-red-400/10";
-  const planetColor = isExiting ? "bg-green-400" : "bg-red-400";
-  const planetShadow = isExiting ? "shadow-[0_0_15px_rgba(74,222,128,1)]" : "shadow-[0_0_15px_rgba(248,113,113,1)]";
-  const coreShadow = isExiting ? "drop-shadow-[0_0_20px_rgba(34,197,94,0.6)]" : "drop-shadow-[0_0_20px_rgba(239,68,68,0.6)]";
-  const titleShadow = isExiting ? "0 0 20px rgba(34,197,94,0.8)" : "0 0 20px rgba(239,68,68,0.8)";
-  const titleAccent = isExiting ? "text-green-400" : "text-red-400";
-  const subtitleColor = isExiting ? "text-green-500/80" : "text-red-500/80";
-  const loadingDot = isExiting ? "bg-green-500" : "bg-red-500";
-  const loadingTextColor = isExiting ? "text-green-400/80" : "text-red-400/80";
-  const progressShadow = isExiting ? "shadow-[0_0_15px_rgba(34,197,94,0.8)]" : "shadow-[0_0_15px_rgba(239,68,68,0.8)]";
-  const progressFill = isExiting ? "bg-green-500" : "bg-red-500";
-  const accessText = isExiting ? "text-green-500 drop-shadow-[0_0_8px_rgba(34,197,94,0.8)]" : "text-red-600/50";
+  // Dynamic color classes - Always Green
+  const color = "green";
+  const textColor = "text-green-500";
+  const selectionColor = "selection:bg-green-500/30";
+  const glowStart = "rgba(34,197,94,0.03)";
+  const glowEnd = "rgba(34,197,94,0.1)";
+  const coreGlow = "bg-green-500/10";
+  const ringColor = "border-green-500/30";
+  const ringTiltTop = "border-green-400/20 border-t-green-400/60";
+  const ringTiltBottom = "border-green-400/20 border-b-green-400/60";
+  const ringVertical = "border-green-400/10";
+  const planetColor = "bg-green-400";
+  const planetShadow = "shadow-[0_0_15px_rgba(74,222,128,1)]";
+  const coreShadow = "drop-shadow-[0_0_20px_rgba(34,197,94,0.6)]";
+  const titleShadow = "0 0 20px rgba(34,197,94,0.8)";
+  const titleAccent = "text-green-400";
+  const subtitleColor = "text-green-500/80";
+  const loadingDot = "bg-green-500";
+  const loadingTextColor = "text-green-400/80";
+  const progressShadow = "shadow-[0_0_15px_rgba(34,197,94,0.8)]";
+  const progressFill = "bg-green-500";
+  const accessText = "text-green-500 drop-shadow-[0_0_8px_rgba(34,197,94,0.8)]";
 
   useEffect(() => {
     if (progress >= 100) {

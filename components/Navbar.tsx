@@ -10,30 +10,14 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ activeLink, scrollToSection }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const savedDark = localStorage.getItem('skycam_dark_mode') === 'true';
-    setDarkMode(savedDark);
-    if (savedDark) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
+    // Enforce dark mode
+    document.documentElement.classList.add('dark');
+    localStorage.setItem('skycam_dark_mode', 'true');
   }, []);
-
-  const toggleDarkMode = () => {
-    const newVal = !darkMode;
-    setDarkMode(newVal);
-    localStorage.setItem('skycam_dark_mode', String(newVal));
-    if (newVal) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  };
 
   const navLinks = [
     { id: NavLink.HOME, label: 'Home' },
@@ -61,16 +45,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeLink, scrollToSection }) => {
           className="flex items-center cursor-pointer"
           onClick={() => scrollToSection(NavLink.HOME)}
         >
-          <img
-            src="/LOGO.png"
-            alt="Skycam Photography"
-            className="h-12 w-auto object-contain dark:invert"
-            onError={(e) => {
-              e.currentTarget.style.display = 'none';
-              e.currentTarget.nextElementSibling?.classList.remove('hidden');
-            }}
-          />
-          <div className="hidden text-2xl font-serif italic font-bold tracking-wider text-black dark:text-white">
+          <div className="text-2xl font-serif italic font-bold tracking-wider text-black dark:text-white">
             <span className="text-brand-600">SKYCAM</span> <span className="text-black dark:text-white text-lg not-italic">PHOTOGRAPHY</span>
           </div>
         </div>
@@ -112,13 +87,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeLink, scrollToSection }) => {
             </div>
           ))}
 
-          <button
-            onClick={toggleDarkMode}
-            className="text-zinc-800 dark:text-zinc-300 hover:text-brand-600 transition-colors"
-            title={darkMode ? 'Light Mode' : 'Dark Mode'}
-          >
-            {darkMode ? <Sun size={20} /> : <Moon size={20} />}
-          </button>
+
         </div>
 
         <button
@@ -167,14 +136,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeLink, scrollToSection }) => {
               )}
             </div>
           ))}
-          <div className="flex items-center justify-between border-t border-zinc-100 dark:border-zinc-800 pt-4 mt-2">
-            <button
-              onClick={toggleDarkMode}
-              className="text-left text-sm tracking-widest uppercase py-2 text-zinc-800 dark:text-zinc-300 hover:text-brand-600 flex items-center gap-2"
-            >
-              {darkMode ? <><Sun size={18} /> Light Mode</> : <><Moon size={18} /> Dark Mode</>}
-            </button>
-          </div>
+
         </div>
       </div>
     </nav>

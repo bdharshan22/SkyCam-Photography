@@ -63,6 +63,7 @@ const PublicLayout: React.FC = () => {
         // Fast simulated progress to keep it feeling responsive
         const sim = setInterval(() => {
             setProgress((p) => {
+                if (p >= 100) return 100; // Locked at 100
                 if (p >= 90 && loaded < total) return p; // Wait a bit at 90% if real resources aren't done
                 return Math.min(99, p + Math.random() * 10);
             });
