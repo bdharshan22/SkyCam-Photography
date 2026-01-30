@@ -15,6 +15,19 @@ export const api = {
   storeUserDetails: async (name: string, whatsapp: string): Promise<{ success: boolean; error?: string }> => {
     try {
       if (supabase) {
+        // Check if user already exists
+        const { data: existingUser, error: checkError } = await supabase
+          .from('user_details')
+          .select('id')
+          .eq('whatsapp_number', whatsapp)
+          .maybeSingle();
+
+        if (existingUser) {
+          console.log('System: User already exists, skipping insert.');
+          // Optionally update timestamp or status here if needed
+          return { success: true };
+        }
+
         const { error } = await supabase
           .from('user_details')
           .insert([
@@ -41,13 +54,17 @@ export const api = {
       // Fallback to local storage
       try {
         const storedUsers = JSON.parse(localStorage.getItem('skycam_users_backup') || '[]');
-        storedUsers.push({
-          name,
-          whatsapp,
-          timestamp: new Date().toISOString(),
-          synced: false
-        });
-        localStorage.setItem('skycam_users_backup', JSON.stringify(storedUsers));
+        // Simple local dedupe
+        const exists = storedUsers.some((u: any) => u.whatsapp === whatsapp);
+        if (!exists) {
+          storedUsers.push({
+            name,
+            whatsapp,
+            timestamp: new Date().toISOString(),
+            synced: false
+          });
+          localStorage.setItem('skycam_users_backup', JSON.stringify(storedUsers));
+        }
         return { success: true };
       } catch (localError: any) {
         return { success: false, error: 'Could not save data locally' };

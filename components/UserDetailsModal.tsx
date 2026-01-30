@@ -142,8 +142,8 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({ isOpen, onClose, on
             </>
           ) : (
             <div className="text-center py-8">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <CheckCircle className="w-8 h-8 text-green-600" />
+              <div className="w-16 h-16 bg-cyan-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <CheckCircle className="w-8 h-8 text-cyan-600" />
               </div>
               <h2 className="text-2xl font-bold text-gray-900 mb-2">Thank You!</h2>
               <p className="text-gray-600 mb-4">Welcome to the world of beautiful photography!</p>

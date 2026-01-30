@@ -6,10 +6,10 @@ const OfflineScreen: React.FC<{ onRetry?: () => void }> = ({ onRetry }) => {
       <div className="max-w-2xl text-center">
         <div className="mb-6">
           <svg width="140" height="140" viewBox="0 0 24 24" className="mx-auto mb-4" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2v6" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M6 8l-3 3v5a2 2 0 0 0 2 2h5" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M18 16l3 3v1a2 2 0 0 1-2 2h-5" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            <circle cx="12" cy="12" r="9" stroke="#fff" strokeOpacity="0.12" strokeWidth="2"/>
+            <path d="M12 2v6" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M6 8l-3 3v5a2 2 0 0 0 2 2h5" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M18 16l3 3v1a2 2 0 0 1-2 2h-5" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <circle cx="12" cy="12" r="9" stroke="#fff" strokeOpacity="0.12" strokeWidth="2" />
           </svg>
           <h2 className="text-3xl font-serif font-bold">You appear to be offline</h2>
         </div>
