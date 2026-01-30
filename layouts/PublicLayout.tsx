@@ -25,7 +25,7 @@ const PublicLayout: React.FC = () => {
         // Force load after 2.5s max to prevent hanging on mobile
         const safetyTimeout = setTimeout(() => {
             setProgress(100);
-        }, 2000);
+        }, 800);
 
         return () => clearTimeout(safetyTimeout);
     }, []);
@@ -65,9 +65,9 @@ const PublicLayout: React.FC = () => {
             setProgress((p) => {
                 if (p >= 100) return 100; // Locked at 100
                 if (p >= 90 && loaded < total) return p; // Wait a bit at 90% if real resources aren't done
-                return Math.min(99, p + Math.random() * 10);
+                return Math.min(99, p + Math.random() * 20 + 5);
             });
-        }, 100); // Faster updates
+        }, 50); // Faster updates
 
         const checkDone = () => {
             setProgress(100);
