@@ -96,8 +96,14 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({ isOpen, onClose, on
                         id="name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="w-full pl-10 pr-4 py-3.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all duration-200 outline-none bg-gray-50 focus:bg-white hover:bg-white text-gray-900 placeholder-gray-500 appearance-none text-base"
-                        style={{ colorScheme: 'light' }}
+                        className="w-full pl-10 pr-4 py-3.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all duration-200 outline-none bg-white text-black placeholder-gray-500 appearance-none text-base"
+                        style={{
+                          colorScheme: 'light',
+                          color: 'black',
+                          backgroundColor: '#ffffff',
+                          WebkitTextFillColor: 'black',
+                          opacity: 1
+                        }}
                         placeholder="John Doe"
                         required
                       />
@@ -117,8 +123,14 @@ const UserDetailsModal: React.FC<UserDetailsModalProps> = ({ isOpen, onClose, on
                         id="whatsapp"
                         value={whatsapp}
                         onChange={(e) => setWhatsapp(e.target.value)}
-                        className="w-full pl-10 pr-4 py-3.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all duration-200 outline-none bg-gray-50 focus:bg-white hover:bg-white text-gray-900 placeholder-gray-500 appearance-none text-base"
-                        style={{ colorScheme: 'light' }}
+                        className="w-full pl-10 pr-4 py-3.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all duration-200 outline-none bg-white text-black placeholder-gray-500 appearance-none text-base"
+                        style={{
+                          colorScheme: 'light',
+                          color: 'black',
+                          backgroundColor: '#ffffff',
+                          WebkitTextFillColor: 'black',
+                          opacity: 1
+                        }}
                         placeholder="+91 98765 43210"
                         required
                       />
