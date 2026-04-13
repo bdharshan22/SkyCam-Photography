@@ -22,17 +22,9 @@ const ScreenshotProtection: React.FC = () => {
             setTimeout(() => toggleObscure(false), 3000);
         };
 
-        // Obscure on blur or visibility change
+        // Obscure on visibility change
         const handleVisibilityChange = () => {
             toggleObscure(document.hidden);
-        };
-
-        const handleBlur = () => {
-            toggleObscure(true);
-        };
-
-        const handleFocus = () => {
-            toggleObscure(false);
         };
 
         // Prevent common keyboard shortcuts for screenshots/printing
@@ -83,16 +75,12 @@ const ScreenshotProtection: React.FC = () => {
         };
 
         document.addEventListener('visibilitychange', handleVisibilityChange, { capture: true });
-        window.addEventListener('blur', handleBlur, { capture: true });
-        window.addEventListener('focus', handleFocus, { capture: true });
         document.addEventListener('keydown', handleKeyDown, { capture: true });
         document.addEventListener('keyup', handleKeyUp, { capture: true });
         document.addEventListener('dragstart', handleDragStart, { capture: true });
 
         return () => {
             document.removeEventListener('visibilitychange', handleVisibilityChange, { capture: true });
-            window.removeEventListener('blur', handleBlur, { capture: true });
-            window.removeEventListener('focus', handleFocus, { capture: true });
             document.removeEventListener('keydown', handleKeyDown, { capture: true });
             document.removeEventListener('keyup', handleKeyUp, { capture: true });
             document.removeEventListener('dragstart', handleDragStart, { capture: true });
