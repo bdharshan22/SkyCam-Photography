@@ -1,25 +1,38 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { ShieldAlert } from 'lucide-react';
 
 const ScreenshotProtection: React.FC = () => {
-    const [isObscured, setIsObscured] = useState(false);
+    const overlayRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        // Obscure on blur or visibility change (for app switchers and some screen recording)
-        const handleVisibilityChange = () => {
-            if (document.hidden) {
-                setIsObscured(true);
-            } else {
-                setIsObscured(false);
+        const toggleObscure = (obscure: boolean) => {
+            if (overlayRef.current) {
+                if (obscure) {
+                    overlayRef.current.style.opacity = '1';
+                    overlayRef.current.style.pointerEvents = 'auto';
+                } else {
+                    overlayRef.current.style.opacity = '0';
+                    overlayRef.current.style.pointerEvents = 'none';
+                }
             }
         };
 
+        const triggerFlash = () => {
+            toggleObscure(true);
+            setTimeout(() => toggleObscure(false), 3000);
+        };
+
+        // Obscure on blur or visibility change
+        const handleVisibilityChange = () => {
+            toggleObscure(document.hidden);
+        };
+
         const handleBlur = () => {
-            setIsObscured(true);
+            toggleObscure(true);
         };
 
         const handleFocus = () => {
-            setIsObscured(false);
+            toggleObscure(false);
         };
 
         // Prevent common keyboard shortcuts for screenshots/printing
@@ -28,25 +41,32 @@ const ScreenshotProtection: React.FC = () => {
             if (e.key === 'PrintScreen') {
                 navigator.clipboard.writeText(''); // Attempt to clear clipboard
                 e.preventDefault();
-                setIsObscured(true);
-                setTimeout(() => setIsObscured(false), 3000);
+                triggerFlash();
+            }
+
+            // Windows Snipping Tool: Win + Shift + S
+            // Or Mac: Cmd + Shift + S
+            if ((e.metaKey || e.ctrlKey) && e.shiftKey && e.key.toLowerCase() === 's') {
+                e.preventDefault();
+                navigator.clipboard.writeText(''); 
+                triggerFlash();
             }
 
             // Command/Ctrl + P (Print)
-            if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'p') {
                 e.preventDefault();
+                triggerFlash();
             }
 
             // Command/Ctrl + S (Save)
-            if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's' && !e.shiftKey) {
                 e.preventDefault();
             }
 
             // Mac Screenshot shortcuts: Cmd+Shift+3, Cmd+Shift+4, Cmd+Shift+5
             if ((e.metaKey || e.ctrlKey) && e.shiftKey && (e.key === '3' || e.key === '4' || e.key === '5')) {
                 e.preventDefault();
-                setIsObscured(true);
-                setTimeout(() => setIsObscured(false), 3000);
+                triggerFlash();
             }
         };
 
@@ -56,31 +76,29 @@ const ScreenshotProtection: React.FC = () => {
             }
         };
 
-        // Prevent drag copying of images
         const handleDragStart = (e: DragEvent) => {
             if (e.target instanceof HTMLImageElement) {
                 e.preventDefault();
             }
         };
 
-        document.addEventListener('visibilitychange', handleVisibilityChange);
-        window.addEventListener('blur', handleBlur);
-        window.addEventListener('focus', handleFocus);
-        document.addEventListener('keydown', handleKeyDown);
-        document.addEventListener('keyup', handleKeyUp);
-        document.addEventListener('dragstart', handleDragStart);
+        document.addEventListener('visibilitychange', handleVisibilityChange, { capture: true });
+        window.addEventListener('blur', handleBlur, { capture: true });
+        window.addEventListener('focus', handleFocus, { capture: true });
+        document.addEventListener('keydown', handleKeyDown, { capture: true });
+        document.addEventListener('keyup', handleKeyUp, { capture: true });
+        document.addEventListener('dragstart', handleDragStart, { capture: true });
 
         return () => {
-            document.removeEventListener('visibilitychange', handleVisibilityChange);
-            window.removeEventListener('blur', handleBlur);
-            window.removeEventListener('focus', handleFocus);
-            document.removeEventListener('keydown', handleKeyDown);
-            document.removeEventListener('keyup', handleKeyUp);
-            document.removeEventListener('dragstart', handleDragStart);
+            document.removeEventListener('visibilitychange', handleVisibilityChange, { capture: true });
+            window.removeEventListener('blur', handleBlur, { capture: true });
+            window.removeEventListener('focus', handleFocus, { capture: true });
+            document.removeEventListener('keydown', handleKeyDown, { capture: true });
+            document.removeEventListener('keyup', handleKeyUp, { capture: true });
+            document.removeEventListener('dragstart', handleDragStart, { capture: true });
         };
     }, []);
 
-    // Also using CSS classes injected here for document-wide protection
     useEffect(() => {
         document.body.classList.add('protection-active');
         return () => {
@@ -88,10 +106,12 @@ const ScreenshotProtection: React.FC = () => {
         };
     }, []);
 
-    if (!isObscured) return null;
-
     return (
-        <div className="fixed inset-0 z-[99999] bg-black backdrop-blur-3xl flex flex-col items-center justify-center text-white p-6">
+        <div 
+            ref={overlayRef}
+            className="fixed inset-0 z-[99999] bg-black backdrop-blur-3xl flex flex-col items-center justify-center text-white p-6 transition-opacity duration-0"
+            style={{ opacity: 0, pointerEvents: 'none' }}
+        >
             <ShieldAlert size={64} className="text-red-500 mb-6 animate-pulse" />
             <h2 className="text-3xl font-bold mb-4 text-center">Privacy Protected</h2>
             <p className="text-gray-400 text-center max-w-md">
