@@ -524,14 +524,13 @@ a img, button img {
     content: '';
     position: absolute;
     inset: 0;
-    z-index: 20;
+    z-index: 50;
     pointer-events: none;
     background-image: url('/LOGO.png');
     background-repeat: repeat;
     background-position: center;
-    background-size: 120px 120px;
-    opacity: 0.15;
-    mix-blend-mode: soft-light;
+    background-size: 150px 150px;
+    opacity: 0.4;
     -webkit-touch-callout: none;
 }
 
