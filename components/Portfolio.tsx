@@ -114,7 +114,7 @@ const Portfolio: React.FC = () => {
               <Link
                 to={`/portfolio/${photo.category}`}
                 key={i}
-                className="group relative overflow-hidden rounded-2xl aspect-[3/4] cursor-pointer"
+                className="group relative overflow-hidden rounded-2xl aspect-[3/4] cursor-pointer watermark-overlay"
               >
                 <img
                   src={photo.url}
@@ -164,7 +164,7 @@ const Portfolio: React.FC = () => {
               <Link
                 to={`/portfolio/${cat.key}`}
                 key={cat.key}
-                className="group relative overflow-hidden rounded-2xl aspect-[3/4] cursor-pointer"
+                className="group relative overflow-hidden rounded-2xl aspect-[3/4] cursor-pointer watermark-overlay"
                 style={{ animationDelay: `${i * 0.05}s` }}
               >
                 {/* Cover image */}

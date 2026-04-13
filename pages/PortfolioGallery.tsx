@@ -59,7 +59,7 @@ const PhotoCard: React.FC<PhotoCardProps> = ({ photo, index, onClick, visible })
   const aspectClass = ASPECT_CLASSES[photo.id % 3];
   return (
     <div
-      className={`group relative overflow-hidden rounded-2xl cursor-pointer transition-all duration-700 ease-out ${aspectClass} ${
+      className={`group relative overflow-hidden rounded-2xl cursor-pointer transition-all duration-700 ease-out watermark-overlay ${aspectClass} ${
         visible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95'
       }`}
       style={{ transitionDelay: `${(index % 8) * 45}ms` }}
@@ -330,7 +330,7 @@ const PortfolioGallery: React.FC = () => {
               {filtered.map((photo, index) => (
                 <div
                   key={photo.id}
-                  className={`group relative overflow-hidden rounded-2xl cursor-pointer aspect-square transition-all duration-700 ease-out ${
+                  className={`group relative overflow-hidden rounded-2xl cursor-pointer aspect-square transition-all duration-700 ease-out watermark-overlay ${
                     cardsVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-6 scale-95'
                   }`}
                   style={{ transitionDelay: `${(index % 12) * 40}ms` }}
@@ -414,7 +414,7 @@ const PortfolioGallery: React.FC = () => {
 
           {/* Image */}
           <div
-            className="max-w-5xl max-h-[85vh] mx-auto px-16"
+            className="max-w-5xl max-h-[85vh] mx-auto px-16 relative watermark-overlay"
             onClick={(e) => e.stopPropagation()}
           >
             <img
