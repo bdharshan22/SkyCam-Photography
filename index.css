@@ -527,10 +527,10 @@ a img, button img {
     z-index: 50;
     pointer-events: none;
     background-image: url('/LOGO.png');
-    background-repeat: repeat;
-    background-position: center;
-    background-size: 150px 150px;
-    opacity: 0.4;
+    background-repeat: no-repeat;
+    background-position: bottom 16px left 16px;
+    background-size: 60px auto;
+    opacity: 0.9;
     -webkit-touch-callout: none;
 }
 
