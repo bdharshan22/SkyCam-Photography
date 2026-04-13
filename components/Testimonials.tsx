@@ -236,18 +236,7 @@ const Testimonials: React.FC = () => {
               <ChevronLeft size={20} />
             </button>
 
-            {/* Dots */}
-            <div className="flex gap-2 flex-wrap justify-center max-w-[200px]">
-              {allTestimonials.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => { setCurrentIndex(i); setIsAutoPlaying(false); }}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                    i === currentIndex ? 'w-6 bg-brand-500' : 'bg-zinc-700 hover:bg-zinc-500'
-                  }`}
-                />
-              ))}
-            </div>
+
 
             <button
               onClick={next}

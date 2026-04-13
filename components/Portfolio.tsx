@@ -61,6 +61,13 @@ const Portfolio: React.FC = () => {
       count: 1,
       cover: '/Instapage/couple_hero.png',
     },
+    {
+      key: 'puberty',
+      label: 'Puberty',
+      tagline: 'A joyous milestone',
+      count: 1,
+      cover: '/Instapage/portrait_hero.png',
+    },
   ];
 
   return (
