@@ -102,9 +102,9 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
     duration: Math.random() * 3 + 3,
   }));
 
-  // Cinematic showreel clips — free Pexels CDN sources
-  const BG_VIDEO = 'https://videos.pexels.com/video-files/3121459/3121459-uhd_2560_1440_25fps.mp4';
-  const REEL_VIDEO = 'https://videos.pexels.com/video-files/3121459/3121459-uhd_2560_1440_25fps.mp4';
+  // Cinematic showreel clips — using mixkit for reliable testing
+  const BG_VIDEO = 'https://assets.mixkit.co/videos/preview/mixkit-bride-and-groom-walk-around-a-fountain-in-a-park-on-42407-large.mp4';
+  const REEL_VIDEO = 'https://assets.mixkit.co/videos/preview/mixkit-bride-and-groom-walk-around-a-fountain-in-a-park-on-42407-large.mp4';
 
   return (
     <section id={NavLink.HOME} className="relative h-screen flex items-center justify-center overflow-hidden bg-surface-950">
