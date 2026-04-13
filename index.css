@@ -519,20 +519,6 @@ a img, button img {
     100% { opacity: 0; }
 }
 
-/* Visible watermark overlay on portfolio images */
-.watermark-overlay::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 50;
-    pointer-events: none;
-    background-image: url('/LOGO.png');
-    background-repeat: no-repeat;
-    background-position: bottom 16px left 16px;
-    background-size: 60px auto;
-    opacity: 0.9;
-    -webkit-touch-callout: none;
-}
 
 .img-protected::after {
     content: '';
