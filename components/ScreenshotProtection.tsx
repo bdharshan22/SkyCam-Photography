@@ -30,8 +30,8 @@ const ScreenshotProtection: React.FC = () => {
         // Prevent common keyboard shortcuts for screenshots/printing
         const handleKeyDown = (e: KeyboardEvent) => {
             // Print Screen key
-            if (e.key === 'PrintScreen') {
-                navigator.clipboard.writeText(''); // Attempt to clear clipboard
+            if (e.key === 'PrintScreen' || e.keyCode === 44) {
+                navigator.clipboard.writeText('').catch(() => {}); // Attempt to clear clipboard
                 e.preventDefault();
                 triggerFlash();
             }
@@ -63,8 +63,9 @@ const ScreenshotProtection: React.FC = () => {
         };
 
         const handleKeyUp = (e: KeyboardEvent) => {
-            if (e.key === 'PrintScreen') {
-                navigator.clipboard.writeText('');
+            if (e.key === 'PrintScreen' || e.keyCode === 44) {
+                navigator.clipboard.writeText('').catch(() => {});
+                triggerFlash();
             }
         };
 

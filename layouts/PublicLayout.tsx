@@ -5,7 +5,6 @@ import Footer from "../components/Footer";
 import LoadingScreen from "../components/LoadingScreen";
 import OfflineScreen from "../components/OfflineScreen";
 import WhatsAppFloat from "../components/WhatsAppFloat";
-import ContentProtection from "../components/ContentProtection";
 import { NavLink } from "../types";
 import { api } from "../services/api";
 
@@ -140,12 +139,6 @@ const PublicLayout: React.FC = () => {
 
             {/* WhatsApp Floating Button */}
             <WhatsAppFloat />
-
-            {/* Content Protection */}
-            <ContentProtection />
-
-            {/* Screenshot Shield — hidden black overlay triggered on screenshot attempts */}
-            <div id="screenshot-shield" />
         </div>
     );
 };
