@@ -6,12 +6,13 @@ const supabaseKey = import.meta.env.VITE_SUPABASE_KEY;
 
 let supabase: any = null;
 
-try {
-  supabase = createClient(supabaseUrl, supabaseKey);
-  console.log('System: Connected to Supabase');
-} catch (e: any) {
-  console.error('System: Supabase initialization error:', e);
-  supabase = null;
+if (supabaseUrl && supabaseKey) {
+  try {
+    supabase = createClient(supabaseUrl, supabaseKey);
+  } catch (e: any) {
+    // Supabase initialization failed — app will run with local fallbacks
+    supabase = null;
+  }
 }
 
 export { supabase };

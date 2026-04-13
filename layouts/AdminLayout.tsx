@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { LogOut, Home, Settings, User, Menu, X, LayoutDashboard, ChevronRight } from 'lucide-react';
+import { LogOut, Home, Settings, Menu, X, LayoutDashboard, ChevronRight, Image, Package, MessageSquare } from 'lucide-react';
 import SettingsModal from '../components/SettingsModal';
 import { Camera } from 'lucide-react';
 
@@ -48,7 +48,9 @@ const AdminLayout: React.FC = () => {
                     </div>
 
                     {/* Navigation Items */}
-                    <div className="flex-1 py-6 px-3 space-y-1">
+                    <div className="flex-1 py-6 px-3 space-y-1 overflow-y-auto">
+                        {/* Analytics */}
+                        <p className="px-3 pt-1 pb-1 text-[10px] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-600">Analytics</p>
                         <button
                             onClick={() => navigate('/admin/dashboard')}
                             className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all group ${location.pathname === '/admin/dashboard' ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white'}`}
@@ -57,6 +59,24 @@ const AdminLayout: React.FC = () => {
                             Dashboard
                             {location.pathname === '/admin/dashboard' && <ChevronRight size={16} className="ml-auto opacity-50" />}
                         </button>
+
+                        {/* Content CMS */}
+                        <p className="px-3 pt-4 pb-1 text-[10px] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-600">Content CMS</p>
+                        {[
+                            { path: '/admin/cms/portfolio', label: 'Portfolio', Icon: Image },
+                            { path: '/admin/cms/packages', label: 'Packages', Icon: Package },
+                            { path: '/admin/cms/reviews', label: 'Reviews', Icon: MessageSquare },
+                        ].map(({ path, label, Icon }) => (
+                            <button
+                                key={path}
+                                onClick={() => navigate(path)}
+                                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all group ${location.pathname === path ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white'}`}
+                            >
+                                <Icon size={20} className={location.pathname === path ? 'text-emerald-500' : 'text-gray-400 dark:text-gray-500 group-hover:text-gray-900 dark:group-hover:text-white transition-colors'} />
+                                {label}
+                                {location.pathname === path && <ChevronRight size={16} className="ml-auto opacity-50" />}
+                            </button>
+                        ))}
                     </div>
 
                     {/* User Profile & Logout */}

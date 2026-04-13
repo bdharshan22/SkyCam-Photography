@@ -19,7 +19,9 @@ export default defineConfig(({ mode }) => {
           name: 'Skycam Photography',
           short_name: 'Skycam',
           description: 'Professional Photography Services',
-          theme_color: '#ffffff',
+          theme_color: '#0a0a0f',
+          background_color: '#0a0a0f',
+          display: 'standalone',
           icons: [
             {
               src: '/pwa-192x192.png',
@@ -69,8 +71,25 @@ export default defineConfig(({ mode }) => {
       })
     ],
     define: {
-      // 'process.env.API_KEY':"PLACEHOLDER_API_KEY",
-      // 'process.env.GEMINI_API_KEY': "PLACEHOLDER_API_KEY"
+      // Strip commented placeholder keys
+    },
+    build: {
+      // Drop console.log and debugger in production
+      ...(process.env.NODE_ENV === 'production' ? {
+        minify: 'esbuild',
+      } : {}),
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            vendor: ['react', 'react-dom', 'react-router-dom'],
+            supabase: ['@supabase/supabase-js'],
+          },
+        },
+      },
+    },
+    esbuild: {
+      // Remove all console.* and debugger statements in production
+      drop: process.env.NODE_ENV === 'production' ? ['console', 'debugger'] : [],
     },
     resolve: {
       alias: {

@@ -2,28 +2,111 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom scrollbar for webkit */
+/* ============================================
+   SKYCAM PHOTOGRAPHY — PREMIUM DESIGN SYSTEM
+   ============================================ */
+
+/* Custom Properties */
+:root {
+    --color-gold: #f59e0b;
+    --color-gold-light: #fbbf24;
+    --color-gold-dark: #d97706;
+    --color-surface: #0a0a0f;
+    --color-surface-elevated: #13111c;
+    --color-surface-card: #1e1b2e;
+    --scrollbar-width: 6px;
+}
+
+/* Base Styles */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--color-surface);
+    font-feature-settings: "kern" 1, "liga" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   SCROLLBAR
+   ============================================ */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: var(--scrollbar-width);
 }
 
 ::-webkit-scrollbar-track {
-    background: #f4f4f5;
+    background: var(--color-surface);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #d4d4d8;
-    border-radius: 4px;
+    background: linear-gradient(180deg, var(--color-gold-dark), var(--color-gold));
+    border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #a1a1aa;
+    background: var(--color-gold-light);
 }
 
+/* ============================================
+   TYPOGRAPHY ENHANCEMENTS
+   ============================================ */
+.text-gradient-gold {
+    background: linear-gradient(135deg, #fcd34d, #f59e0b, #d97706);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.text-gradient-white {
+    background: linear-gradient(135deg, #ffffff, #a1a1aa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.text-gradient-hero {
+    background: linear-gradient(135deg, #ffffff 0%, #fbbf24 50%, #d97706 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ============================================
+   GLASSMORPHISM COMPONENTS
+   ============================================ */
+.glass {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.glass-card {
+    background: rgba(30, 27, 46, 0.6);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+    background: rgba(30, 27, 46, 0.8);
+    border-color: rgba(245, 158, 11, 0.2);
+    box-shadow: 0 20px 60px rgba(245, 158, 11, 0.08),
+                0 0 0 1px rgba(245, 158, 11, 0.1);
+    transform: translateY(-4px);
+}
+
+/* ============================================
+   REVEAL ANIMATIONS
+   ============================================ */
 .reveal-on-scroll {
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .reveal-on-scroll.is-visible {
@@ -31,12 +114,109 @@
     transform: translateY(0);
 }
 
-/* Perspective for sticky cards */
+/* Stagger delays */
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+
+/* ============================================
+   PERSPECTIVE & 3D
+   ============================================ */
 .perspective-container {
     perspective: 1000px;
 }
 
-/* Hide scrollbar for marquee containers */
+.preserve-3d {
+    transform-style: preserve-3d;
+}
+
+/* ============================================
+   GLOW EFFECTS
+   ============================================ */
+.glow-gold {
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.15),
+                0 0 60px rgba(245, 158, 11, 0.05);
+}
+
+.glow-gold-strong {
+    box-shadow: 0 0 30px rgba(245, 158, 11, 0.3),
+                0 0 80px rgba(245, 158, 11, 0.1),
+                inset 0 0 30px rgba(245, 158, 11, 0.05);
+}
+
+.glow-text-gold {
+    text-shadow: 0 0 20px rgba(245, 158, 11, 0.5),
+                 0 0 40px rgba(245, 158, 11, 0.2);
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+.btn-premium {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 40px;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: #000;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border-radius: 0;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 10px 30px rgba(245, 158, 11, 0.25);
+}
+
+.btn-premium::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s ease;
+}
+
+.btn-premium:hover::before {
+    left: 100%;
+}
+
+.btn-premium:hover {
+    box-shadow: 0 15px 40px rgba(245, 158, 11, 0.35);
+    transform: translateY(-2px);
+}
+
+.btn-outline {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 40px;
+    background: transparent;
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-outline:hover {
+    border-color: var(--color-gold);
+    color: var(--color-gold);
+    box-shadow: 0 0 30px rgba(245, 158, 11, 0.1);
+}
+
+/* ============================================
+   MARQUEE / INFINITE SCROLL
+   ============================================ */
 .no-scrollbar::-webkit-scrollbar {
     display: none;
 }
@@ -44,4 +224,308 @@
 .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
+}
+
+/* ============================================
+   NOISE TEXTURE OVERLAY
+   ============================================ */
+.noise-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.015;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ============================================
+   COUNTER ANIMATION
+   ============================================ */
+@property --num {
+    syntax: "<integer>";
+    initial-value: 0;
+    inherits: false;
+}
+
+.animated-counter {
+    counter-reset: num var(--num);
+    animation: counter 2.5s ease-out forwards;
+}
+
+.animated-counter::after {
+    content: counter(num);
+}
+
+@keyframes counter {
+    to {
+        --num: var(--target);
+    }
+}
+
+/* ============================================
+   CUSTOM ANIMATIONS
+   ============================================ */
+@keyframes pulse-slow {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.05); }
+}
+
+.animate-pulse-slow {
+    animation: pulse-slow 4s ease-in-out infinite;
+}
+
+/* Floating animation for drone / hero elements */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+}
+.animate-float {
+    animation: float 4s ease-in-out infinite;
+}
+
+/* Fade in up animation */
+@keyframes fade-in-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up {
+    animation: fade-in-up 0.6s ease-out both;
+}
+
+/* Slow spin for decorative elements */
+.animate-spin-slow {
+    animation: spin 3s linear infinite;
+}
+
+/* Testimonial card hover */
+.testimonial-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.testimonial-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.testimonial-card:hover::before {
+    opacity: 1;
+}
+
+/* ============================================
+   SECTION DIVIDERS
+   ============================================ */
+.section-divider {
+    position: relative;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.3), transparent);
+}
+
+/* ============================================
+   INPUT STYLES
+   ============================================ */
+.input-premium {
+    width: 100%;
+    padding: 14px 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    color: #fff;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.input-premium::placeholder {
+    color: rgba(255, 255, 255, 0.25);
+}
+
+.input-premium:focus {
+    border-color: var(--color-gold);
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* ============================================
+   RESPONSIVE HELPERS — MOBILE FIRST
+   ============================================ */
+
+/* Prevent iOS font size inflation */
+html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+/* Safe area support for notched iPhones */
+.safe-area-padding {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Touch targets — WCAG requires minimum 44×44px */
+button, a, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+/* But allow small inline icon buttons to shrink */
+.btn-icon-sm {
+    min-height: 36px;
+    min-width: 36px;
+}
+
+/* Accessible focus ring — visible on keyboard nav, hidden on mouse */
+:focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+:focus:not(:focus-visible) {
+    outline: none;
+}
+
+@media (max-width: 768px) {
+    /* Ensure containers don't touch screen edges */
+    .mobile-padding {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }
+
+    /* Prevent horizontal scrollbar from appearing on animations */
+    section {
+        overflow-x: hidden;
+    }
+
+    /* Footer grid stacks nicely */
+    footer .grid {
+        gap: 2rem;
+    }
+}
+
+/* Landscape phone — reduce hero height so content fits */
+@media (max-height: 500px) and (orientation: landscape) {
+    section[id="home"] {
+        min-height: 100svh;
+    }
+    section[id="home"] h1 {
+        font-size: clamp(2.5rem, 8vw, 5rem) !important;
+    }
+}
+
+/* Fluid hero title — clamp between 2.5rem (mobile) and 9rem (desktop) */
+.hero-title-fluid {
+    font-size: clamp(2.5rem, 10vw, 9rem);
+}
+
+/* ============================================
+   MODAL ANIMATIONS
+   ============================================ */
+@keyframes modal-enter {
+    0% { opacity: 0; transform: scale(0.9) translateY(20px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.animate-modal-enter {
+    animation: modal-enter 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes backdrop-enter {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.animate-backdrop-enter {
+    animation: backdrop-enter 0.3s ease-out forwards;
+}
+
+/* ============================================
+   PARTICLE GRID BACKGROUND
+   ============================================ */
+.grid-bg {
+    background-image:
+        linear-gradient(rgba(245, 158, 11, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245, 158, 11, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+}
+
+/* ============================================
+   CONTENT PROTECTION
+   ============================================ */
+
+/* Prevent all text/image selection */
+body {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+}
+
+/* Allow selection inside form inputs */
+input, textarea, select, [contenteditable="true"] {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+    -webkit-touch-callout: default;
+}
+
+/* Prevent image interactions */
+img {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    pointer-events: none;
+    -webkit-touch-callout: none;
+}
+
+/* Re-enable pointer events on images inside buttons/links so clicks work */
+a img, button img {
+    pointer-events: auto;
+}
+
+/* Block printing entirely */
+@media print {
+    html, body {
+        display: none !important;
+        visibility: hidden !important;
+    }
+}
+
+/* Screenshot shield overlay */
+#screenshot-shield {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: #000;
+    pointer-events: none;
+    animation: shieldFlash 1.5s ease-out forwards;
+}
+
+@keyframes shieldFlash {
+    0% { opacity: 1; }
+    70% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+/* Invisible watermark overlay on portfolio images */
+.img-protected::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: auto;
+    background: transparent;
+    -webkit-touch-callout: none;
 }
