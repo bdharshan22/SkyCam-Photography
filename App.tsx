@@ -17,6 +17,7 @@ import SEO from "./components/SEO";
 import TestConnection from "./pages/TestConnection";
 import CustomCursor from "./components/CustomCursor";
 import CustomContextMenu from "./components/CustomContextMenu";
+import ScreenshotProtection from "./components/ScreenshotProtection";
 import ServiceDetail from "./components/ServiceDetail";
 import DronePhotography from "./pages/DronePhotography";
 import PortfolioGallery from "./pages/PortfolioGallery";
@@ -26,6 +27,7 @@ const App: React.FC = () => {
     <HelmetProvider>
       <AuthProvider>
         <Router>
+          <ScreenshotProtection />
           <CustomCursor />
           <CustomContextMenu />
           <SEO />
