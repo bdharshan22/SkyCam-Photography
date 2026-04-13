@@ -71,20 +71,8 @@ const testimonials: Testimonial[] = [
 
 const Testimonials: React.FC = () => {
   const [allTestimonials, setAllTestimonials] = useState<Testimonial[]>(testimonials);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const sectionRef = useRef<HTMLElement>(null);
-
-  const [visibleCount, setVisibleCount] = useState(typeof window !== 'undefined' && window.innerWidth >= 768 ? 3 : 1);
-
-  // Update visible count on resize (e.g. orientation change)
-  useEffect(() => {
-    const handleResize = () => {
-      setVisibleCount(window.innerWidth >= 768 ? 3 : 1);
-    };
-    window.addEventListener('resize', handleResize, { passive: true });
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchApprovedReviews = async () => {
@@ -115,21 +103,6 @@ const Testimonials: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (!isAutoPlaying || allTestimonials.length === 0) return;
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % allTestimonials.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [isAutoPlaying, allTestimonials.length]);
-
-  // Reset index if it goes out of bounds after resize changes visibleCount
-  useEffect(() => {
-    if (currentIndex >= allTestimonials.length) {
-      setCurrentIndex(0);
-    }
-  }, [visibleCount, allTestimonials.length, currentIndex]);
-
-  useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) entry.target.classList.add('is-visible');
@@ -141,23 +114,14 @@ const Testimonials: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
-  const next = () => {
-    setIsAutoPlaying(false);
-    setCurrentIndex((prev) => (prev + 1) % allTestimonials.length);
-  };
-
-  const prev = () => {
-    setIsAutoPlaying(false);
-    setCurrentIndex((prev) => (prev - 1 + allTestimonials.length) % allTestimonials.length);
-  };
-
-  const getVisibleTestimonials = () => {
-    if (allTestimonials.length === 0) return [];
-    const result = [];
-    for (let i = 0; i < visibleCount; i++) {
-      result.push(allTestimonials[(currentIndex + i) % allTestimonials.length]);
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollContainerRef.current) {
+      const scrollAmount = window.innerWidth >= 768 ? 380 : window.innerWidth * 0.85;
+      scrollContainerRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
     }
-    return result;
   };
 
   return (
@@ -187,13 +151,15 @@ const Testimonials: React.FC = () => {
         </div>
 
         {/* Testimonial Cards */}
-        <div className="relative">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            {getVisibleTestimonials().map((t, i) => (
+        <div className="relative group/slider">
+          <div 
+            ref={scrollContainerRef}
+            className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 pt-4 px-4 -mx-4 md:px-0 md:mx-0 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          >
+            {allTestimonials.map((t, i) => (
               <div
-                key={`${t.id}-${currentIndex}`}
-                className="testimonial-card glass-card rounded-2xl p-8 flex flex-col animate-fade-in"
-                style={{ animationDelay: `${i * 0.1}s` }}
+                key={`${t.id}`}
+                className="testimonial-card glass-card rounded-2xl p-8 flex flex-col shrink-0 snap-center w-[85vw] md:w-[400px] hover:-translate-y-1 transition-transform duration-300"
               >
                 {/* Quote Icon */}
                 <Quote className="w-8 h-8 text-brand-500/20 mb-4" />
@@ -228,19 +194,19 @@ const Testimonials: React.FC = () => {
           </div>
 
           {/* Navigation */}
-          <div className="flex items-center justify-center gap-4">
+          <div className="flex items-center justify-center gap-4 mt-2 hover:opacity-100 transition-opacity">
             <button
-              onClick={prev}
+              onClick={() => scroll('left')}
               className="p-3 rounded-full border border-white/10 text-zinc-400 hover:text-white hover:border-brand-500/30 hover:bg-brand-500/5 transition-all duration-300"
+              aria-label="Previous testimonials"
             >
               <ChevronLeft size={20} />
             </button>
 
-
-
             <button
-              onClick={next}
+              onClick={() => scroll('right')}
               className="p-3 rounded-full border border-white/10 text-zinc-400 hover:text-white hover:border-brand-500/30 hover:bg-brand-500/5 transition-all duration-300"
+              aria-label="Next testimonials"
             >
               <ChevronRight size={20} />
             </button>
