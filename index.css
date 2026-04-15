@@ -20,6 +20,19 @@
 /* Base Styles */
 html {
     scroll-behavior: smooth;
+    /* Prevent horizontal scrolling on mobile */
+    overflow-x: hidden;
+}
+
+/* Fix mobile viewport height issues (address bar) */
+.h-screen {
+    height: 100vh; /* Fallback */
+    height: 100dvh;
+}
+
+.min-h-screen {
+    min-height: 100vh; /* Fallback */
+    min-height: 100dvh;
 }
 
 body {
@@ -112,6 +125,17 @@ body {
 .reveal-on-scroll.is-visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* Responsive Fluid Typography */
+.text-fluid-h1 {
+    font-size: clamp(2.5rem, 8vw, 5rem);
+}
+.text-fluid-h2 {
+    font-size: clamp(2rem, 5vw, 4rem);
+}
+.text-fluid-h3 {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
 }
 
 /* Stagger delays */

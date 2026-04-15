@@ -159,7 +159,7 @@ const Testimonials: React.FC = () => {
             {allTestimonials.map((t, i) => (
               <div
                 key={`${t.id}`}
-                className="testimonial-card glass-card rounded-2xl p-8 flex flex-col shrink-0 snap-center w-[85vw] md:w-[400px] hover:-translate-y-1 transition-transform duration-300"
+                className="testimonial-card glass-card rounded-2xl p-8 flex flex-col shrink-0 snap-center w-[85%] md:w-[400px] max-w-[90vw] hover:-translate-y-1 transition-transform duration-300"
               >
                 {/* Quote Icon */}
                 <Quote className="w-8 h-8 text-brand-500/20 mb-4" />

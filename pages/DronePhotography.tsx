@@ -280,10 +280,10 @@ const DronePhotography: React.FC = () => {
 
           <h1 className={`transition-all duration-1000 ${droneReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
             style={{ transitionDelay: '2s' }}>
-            <span className="block text-6xl sm:text-7xl md:text-9xl font-serif font-bold leading-[0.85] mb-2">
+            <span className="block text-[clamp(4rem,15vw,8rem)] font-serif font-bold leading-[0.85] mb-2">
               <span className="text-gradient-gold">Drone</span>
             </span>
-            <span className="block text-5xl sm:text-6xl md:text-8xl font-serif font-bold text-white leading-[0.9]">
+            <span className="block text-[clamp(3rem,8vw,6rem)] font-serif font-bold text-white leading-[0.9]">
               Videography
             </span>
           </h1>

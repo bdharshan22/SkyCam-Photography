@@ -237,7 +237,7 @@ const Hero: React.FC<HeroProps> = ({ scrollToSection }) => {
 
         {/* Main Title */}
         <h1 className="mb-6 animate-fade-in-up" style={{ animationDelay: '0.25s' }}>
-          <span className="block text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-serif font-bold leading-[0.9] tracking-tight">
+          <span className="block text-[clamp(4rem,12vw,9rem)] font-serif font-bold leading-[0.9] tracking-tight">
             <span className="text-gradient-gold glow-text-gold">Sky</span>
             <span className="text-white">cam</span>
           </span>
